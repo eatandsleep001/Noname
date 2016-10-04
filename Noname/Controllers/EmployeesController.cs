@@ -129,18 +129,26 @@ namespace Noname.Controllers
             if (ModelState.IsValid)
             {
                 Employee employeeLogin = db.Employees.Find(employee.EmployeeCode);
-                //db.Employees.Where(
-                //    e => e.EmployeeCode == employee.EmployeeCode &&
-                //    e.EmployeePassword == employee.EmployeePassword).First();
-                if (employeeLogin.EmployeePassword == employee.EmployeePassword)
+                if (employeeLogin != null)
                 {
-                    FormsAuthentication.SetAuthCookie(employeeLogin.EmployeeCode, false);
+                    if (employeeLogin.EmployeePassword == employee.EmployeePassword)
+                    {
+                        FormsAuthentication.SetAuthCookie(employeeLogin.EmployeeCode, false);
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Wrong Password");
+
+                        return View(employee);
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Login");
+                    ModelState.AddModelError(string.Empty, "EmployeeCode not found");
+
+                    return View(employee);
                 }
             }
 
