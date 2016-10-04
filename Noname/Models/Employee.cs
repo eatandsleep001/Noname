@@ -10,10 +10,15 @@ namespace Noname.Models
     [Table("EMPLOYEE_MST")]
     public class Employee
     {
-        [Column("EMP_CODE")]
         [Required]
+        [Key]
+        [Column("EMP_CODE", TypeName = "CHAR"), Display(Name = "EmployeeCode")]
         [StringLength(4, MinimumLength = 1)]
-        [Display(Name = "Last Name")]
-        public string EmployeeCode;
+        public string EmployeeCode { get; set; }
+
+        [Required]
+        [Column("EMP_PASSWORD", TypeName = "VARCHAR"), Display(Name = "Password")]
+        [StringLength(20, MinimumLength = 4)]
+        public string EmployeePassword { get; set; }
     }
 }
