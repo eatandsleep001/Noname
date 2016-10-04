@@ -17,7 +17,7 @@ namespace Noname.Models
         public string EmployeeCode { get; set; }
 
         [Required]
-        [Column("EMP_PASSWORD", TypeName = "VARCHAR"), Display(Name = "Password")]
+        [Column("EMP_PASSWORD", TypeName = "VARCHAR"), Display(Name = "Password"), DataType(DataType.Password)]
         [StringLength(20, MinimumLength = 4)]
         public string EmployeePassword { get; set; }
     }
